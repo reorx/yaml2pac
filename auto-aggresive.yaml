@@ -1,0 +1,6 @@
+default: proxy
+direct:
+  domain:
+    - cn
+  ip:
+    - "192.168.*.*"
