@@ -1,0 +1,44 @@
+default: direct
+proxy:
+  domain:
+    # twitter
+    - twitter.com
+    - twimg.com
+    - t.co
+    - bit.ly
+    - cl.ly
+    # google
+    - google.com
+    - goo.gl
+    - googleusercontent.com
+    - googleapis.com
+    - gstatic.com
+    - youtube.com
+    - youtu.be
+    - ytimg.com
+    # github
+    - github.com
+    - github.io
+    - githubusercontent.com
+    # instagram
+    - cdninstagram.com
+    - instagram.com
+    # cdn
+    - akamaihd.net
+    - edgecastcdn.net
+    - licdn.com
+    - fastly.net
+    - cloudfront.net
+    - cloudflare.com
+    # others
+    - wistia.com
+    - wistia.net
+    - bjtelecom.net
+    - xe.com
+  keyword:
+    - google
+    - gmail
+    - youtube
+    - twitter
+    - instagram
+    - aka
