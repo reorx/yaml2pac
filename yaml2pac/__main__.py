@@ -8,6 +8,8 @@ import pkgutil
 import argparse
 
 
+# TODO check HTTPS, SOCKS fallback
+
 def _to_object(l, v):
     # although `direct:` rule set don't use `- <match>:proxy_name` directive,
     # use the same function to multiplex the code
@@ -84,12 +86,16 @@ def main():
   yaml2pac myrules.yaml > ~/.ShadowsocksX/gfwlist.js"""
 
     parser = argparse.ArgumentParser(
-        description="Generate pac content from yaml file",
+        description="Generate pac file from yaml file",
         epilog=usage_example,
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
     # arguments
     parser.add_argument('yaml', metavar="YAML", type=str, help="The input yaml file")
+
+    # options
+    parser.add_argument('-i', '--ignore', action='store_true',
+            help="Ignore warnings, no warnings will show up")
 
     args = parser.parse_args()
 
