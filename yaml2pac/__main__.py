@@ -4,6 +4,8 @@
 import sys
 import yaml
 import json
+import pkgutil
+import argparse
 
 
 def _to_object(l, v):
@@ -19,7 +21,7 @@ def _to_object(l, v):
     return o
 
 
-def parse_default(default):
+def _parse_default(default):
     if default == 'direct':
         return 'direct'
     elif default == 'proxy':
@@ -37,9 +39,7 @@ def generate_pac(d):
         __KEYWORD__
         __DOMAIN__
     """
-
-    with open('template.pac', 'r') as f:
-        template = f.read()
+    template = pkgutil.get_data('yaml2pac', 'template.pac')
 
     rule_types = ['ip', 'keyword', 'domain']
     rule_values = {
@@ -49,7 +49,7 @@ def generate_pac(d):
 
     pac_args = {
         'proxies': d['meta']['proxies'],
-        'default': parse_default(d['meta']['default']),
+        'default': _parse_default(d['meta']['default']),
     }
     [pac_args.setdefault(i, {}) for i in rule_types]
 
@@ -66,7 +66,7 @@ def generate_pac(d):
                 _to_object(rules, rule_value)
             )
 
-    #print pac_args
+    # print pac_args
     pac_text = template
     for i, j in pac_args.iteritems():
         key = '__' + i.upper() + '__'
@@ -78,18 +78,31 @@ def generate_pac(d):
     return pac_text
 
 
-def write_pac(text, filename):
-    with open(filename, 'w') as f:
-        f.write(text)
+def main():
+    usage_example = """Example:
+  yaml2pac myrules.yaml > ~/.ShadowsocksX/gfwlist.js"""
 
+    parser = argparse.ArgumentParser(
+        description="Generate pac content from yaml file",
+        epilog=usage_example,
+        formatter_class=argparse.RawDescriptionHelpFormatter)
 
-if __name__ == '__main__':
+    # arguments
+    parser.add_argument('yaml', metavar="YAML", type=str, help="The input yaml file")
 
-    filename = sys.argv[1]
+    args = parser.parse_args()
 
-    with open(filename, 'r') as f:
-        text = f.read()
+    try:
+        with open(args.yaml, 'r') as f:
+            text = f.read()
+    except IOError as e:
+        print 'Could not read file {}: {}'.format(args.yaml, e)
+        sys.exit()
 
     d = yaml.load(text)
 
-    write_pac(generate_pac(d), sys.argv[2])
+    print generate_pac(d)
+
+
+if __name__ == '__main__':
+    main()
