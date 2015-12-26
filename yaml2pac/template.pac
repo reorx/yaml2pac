@@ -3,7 +3,7 @@
 
 var direct = 'DIRECT;';
 
-var proxies = __PROXIES__;
+var proxy = __PROXY__;
 
 var default_ = __DEFAULT__;
 
@@ -17,15 +17,15 @@ var domain_map = __DOMAIN__;
 // Helper functions
 
 // The default proxy, simply named proxy
-var proxy = proxies['default'];
+var proxy_default = proxy['default'];
 
 function get_result(indicator) {
     if (indicator === 0)
         return direct;
     else if (indicator === 1)
-        return proxy;
+        return proxy_default;
     else
-        return proxies[indicator];
+        return proxy[indicator];
 };
 
 

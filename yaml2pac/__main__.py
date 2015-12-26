@@ -25,9 +25,9 @@ def _parse_default(default):
     if default == 'direct':
         return 'direct'
     elif default == 'proxy':
-        return 'proxies["default"]'
+        return 'proxy["default"]'
     else:
-        return 'proxies["%s"]' % default
+        return 'proxy["%s"]' % default
 
 
 def generate_pac(d):
@@ -48,16 +48,17 @@ def generate_pac(d):
     }
 
     pac_args = {
-        'proxies': d['meta']['proxies'],
+        'proxy': d['meta']['proxy'],
         'default': _parse_default(d['meta']['default']),
     }
     [pac_args.setdefault(i, {}) for i in rule_types]
 
     # handle rules
-    for i, rule_value in rule_values.iteritems():
-        ruleset = d.get(i)
-        if not ruleset:
+    # for i, rule_value in rule_values.iteritems():
+    for k, ruleset in d.iteritems():
+        if k == 'meta':
             continue
+        rule_value = rule_values.get(k, k)
         for rule_type in rule_types:
             rules = ruleset.get(rule_type)
             if not rules:
