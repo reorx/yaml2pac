@@ -1,6 +1,34 @@
-default: proxy
+meta:
+  default: proxy
+  proxies:
+    default: "HTTPS jp.gfw.io;"
+
 direct:
   domain:
+    - vnet.link
     - cn
+    - guokr.com
+    - douban.com
+    - zhihu.com
+    - zhimg.com
+    - bilibili.com
+    - hdslb.com
+    - jd.com
+    - jcloud.com
+    - alipay.com
+    - alipayobjects.com
+    - taobao.com
+    - tmall.com
+    - alicdn.com
+    - smzdm.com
+    - zdmimg.com
+    - sf-express.com
+    - cmbchina.com
+    - qq.com
+    - xunlei.com
+    - ziroom.com
+    - baidu.com
+    - bdimg.com
+    - bdstatic.com
   ip:
     - "192.168.*.*"

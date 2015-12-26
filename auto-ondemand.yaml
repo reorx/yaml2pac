@@ -1,4 +1,9 @@
-default: direct
+meta:
+  default: direct
+  proxies:
+    default: "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT;"
+    https_us: "HTTPS us.gfw.io:443;"
+
 proxy:
   domain:
     # twitter
@@ -13,9 +18,9 @@ proxy:
     - googleusercontent.com
     - googleapis.com
     - gstatic.com
-    - youtube.com
-    - youtu.be
-    - ytimg.com
+    - youtube.com: https_us
+    - youtu.be: https_us
+    - ytimg.com: https_us
     # github
     - github.com
     - github.io
@@ -38,7 +43,7 @@ proxy:
   keyword:
     - google
     - gmail
-    - youtube
+    - youtube: https_us
     - twitter
     - instagram
     - aka
