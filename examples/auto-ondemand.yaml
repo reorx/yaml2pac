@@ -1,14 +1,17 @@
 meta:
   default: direct
-  proxies:
+  proxy:
     default: "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT;"
-    https_us: "HTTPS us.gfw.io:443;"
+    # For video use
+    https_us: "HTTPS us.your-proxy.io:443;"
+    # For image use
+    https_jp: "HTTPS jp.your-proxy.io:443;"
 
 proxy:
   domain:
     # twitter
     - twitter.com
-    - twimg.com
+    - twimg.com: https_jp
     - t.co
     - bit.ly
     - cl.ly
@@ -18,16 +21,13 @@ proxy:
     - googleusercontent.com
     - googleapis.com
     - gstatic.com
-    - youtube.com: https_us
-    - youtu.be: https_us
-    - ytimg.com: https_us
     # github
     - github.com
     - github.io
     - githubusercontent.com
     # instagram
-    - cdninstagram.com
-    - instagram.com
+    - cdninstagram.com: https_jp
+    - instagram.com: https_jp
     # cdn
     - akamaihd.net
     - edgecastcdn.net
@@ -43,7 +43,14 @@ proxy:
   keyword:
     - google
     - gmail
-    - youtube: https_us
     - twitter
     - instagram
     - aka
+
+http_us:
+  domain:
+    - youtube.com
+    - youtu.be
+    - ytimg.com
+  keyword:
+    - youtube

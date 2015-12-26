@@ -1,6 +1,6 @@
 meta:
   default: proxy
-  proxies:
+  proxy:
     default: "HTTPS jp.gfw.io;"
 
 direct:
