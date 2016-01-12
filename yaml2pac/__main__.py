@@ -85,7 +85,7 @@ def generate_pac(d, rule_types=RULE_TYPES, rule_values=RULE_VALUES, ignore_warni
         __KEYWORD__
         __DOMAIN__
     """
-    template = pkgutil.get_data('yaml2pac', 'template.pac')
+    template = pkgutil.get_data('yaml2pac', 'data/template.pac')
 
     proxies = d['meta']['proxy']
 
