@@ -1,0 +1,15 @@
+{
+  "name": "yaml2pac",
+  "version": "1.0.0",
+  "description": "Generate high efficiency pac file from a yaml-based protocol.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reorx/yaml2pac.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/reorx/yaml2pac#readme",
+  "devDependencies": {
+    "mocha": "^2.3.4"
+  }
+}
