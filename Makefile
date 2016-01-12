@@ -6,6 +6,9 @@ clean:
 test:
 	PYTHONPATH=. nosetests -w test/ -v
 
+minify:
+	cd yaml2pac/data && python minify.py cidr_match.js > cidr_match.min.js
+
 publish:
 	python setup.py sdist upload
 
