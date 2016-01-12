@@ -1,5 +1,5 @@
 var assert = require('assert');
-var cidr = require('../yaml2pac/data/cidr_match.js');
+var cidr = require('../yaml2pac/data/cidr_match.min.js');
 
 var test_data = [
     // exact ip
