@@ -1,0 +1,6 @@
+ModuleCache/
+nsrequest/Index/
+nsrequest/Logs/
+nsrequest/info.plist
+nsrequest/Build/Intermediates/
+nsrequest/Build/Products/Release/nsrequest.dSYM/
