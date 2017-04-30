@@ -1,0 +1,119 @@
+cdninstagram.com
+akamaihd.net
+instagram.com
+twimg.com
+xe.com
+googleusercontent.com
+googleapis.com
+gstatic.com
+github.com
+bjtelecom.net
+wistia.com
+wistia.net
+google.com
+githubusercontent.com
+youtube.com
+
+
+# Google
+DOMAIN-KEYWORD,google,Proxy,force-remote-dns
+DOMAIN-SUFFIX,goo.gl,Proxy,force-remote-dns
+DOMAIN-SUFFIX,gstatic.com,Proxy,force-remote-dns
+DOMAIN-KEYWORD,gmail,Proxy,force-remote-dns
+DOMAIN-KEYWORD,youtube,Proxy,force-remote-dns
+DOMAIN-SUFFIX,youtu.be,Proxy,force-remote-dns
+DOMAIN-SUFFIX,ytimg.com,Proxy,force-remote-dns
+
+# Apple
+#DOMAIN-SUFFIX,ls.apple.com,DIRECT
+#DOMAIN-SUFFIX,lcdn-registration.apple.com,DIRECT
+#DOMAIN-SUFFIX,apple.com,Proxy
+#DOMAIN-SUFFIX,mzstatic.com,Proxy
+#DOMAIN-SUFFIX,itunes.com,Proxy
+#DOMAIN-SUFFIX,icloud.com,Proxy
+
+# Twitter
+DOMAIN-KEYWORD,twitter,Proxy,force-remote-dns
+DOMAIN-SUFFIX,twimg.com,Proxy,force-remote-dns
+DOMAIN-SUFFIX,t.co,Proxy,force-remote-dns
+
+# Instagram
+DOMAIN-KEYWORD,instagram,Proxy,force-remote-dns
+
+# Dropbox
+DOMAIN-SUFFIX,dropbox.com,Proxy,force-remote-dns
+DOMAIN-SUFFIX,dropboxstatic.com,Proxy,force-remote-dns
+DOMAIN-SUFFIX,dropboxusercontent.com,Proxy,force-remote-dns
+
+# Github
+DOMAIN-SUFFIX,github.com,Proxy
+DOMAIN-SUFFIX,github.io,Proxy
+DOMAIN-SUFFIX,githubusercontent.com,Proxy
+
+# CDN
+DOMAIN-SUFFIX,akamaihd.net,Proxy
+DOMAIN-KEYWORD,aka,Proxy
+DOMAIN-SUFFIX,edgecastcdn.net,Proxy
+DOMAIN-SUFFIX,licdn.com,Proxy
+DOMAIN-SUFFIX,fastly.net,Proxy
+DOMAIN-SUFFIX,cloudfront.net,Proxy
+DOMAIN-SUFFIX,cloudflare.com,Proxy
+
+# Short Links
+DOMAIN-SUFFIX,bit.ly,Proxy,force-remote-dns
+DOMAIN-SUFFIX,cl.ly,Proxy,force-remote-dns
+
+# Telegram
+IP-CIDR,91.108.56.0/22,Proxy,no-resolve
+IP-CIDR,91.108.4.0/22,Proxy,no-resolve
+IP-CIDR,109.239.140.0/24,Proxy,no-resolve
+IP-CIDR,149.154.160.0/20,Proxy,no-resolve
+
+# LAN
+IP-CIDR,192.168.0.0/16,DIRECT
+IP-CIDR,10.0.0.0/8,DIRECT
+IP-CIDR,172.16.0.0/12,DIRECT
+IP-CIDR,127.0.0.0/8,DIRECT
+IP-CIDR,100.64.0.0/10,DIRECT
+
+# Others
+DOMAIN-SUFFIX,amazon.com,Proxy
+DOMAIN-SUFFIX,crashlytics.com,Proxy
+DOMAIN-SUFFIX,flickr.com,Proxy
+DOMAIN-SUFFIX,ggpht.com,Proxy
+DOMAIN-SUFFIX,gravatar.com,Proxy
+DOMAIN-SUFFIX,imgur.com,Proxy
+DOMAIN-SUFFIX,linode.com,Proxy
+DOMAIN-SUFFIX,pinboard.in,Proxy
+DOMAIN-SUFFIX,ssl-images-amazon.com,Proxy
+DOMAIN-SUFFIX,sstatic.net,Proxy
+DOMAIN-SUFFIX,staticflickr.com,Proxy
+DOMAIN-SUFFIX,tumblr.com,Proxy
+DOMAIN-SUFFIX,wikipedia.com,Proxy
+DOMAIN-SUFFIX,wikipedia.org,Proxy
+DOMAIN-SUFFIX,wikimedia.org,Proxy
+DOMAIN-SUFFIX,vimeo.com,Proxy
+
+# Block privacy tracker within apps
+DOMAIN-KEYWORD,umeng.co,REJECT
+DOMAIN-KEYWORD,flurry.co,REJECT
+DOMAIN-KEYWORD,cnzz,REJECT
+DOMAIN-SUFFIX,mmstat.com,REJECT
+DOMAIN-SUFFIX,doubleclick.net,REJECT
+DOMAIN-SUFFIX,youmi.net,REJECT
+DOMAIN,monitor.uu.qq.com,REJECT
+DOMAIN,pagead2.googlesyndication.com,REJECT
+DOMAIN,cpro.baidu.com,REJECT
+DOMAIN-SUFFIX,beacon.qq.com,REJECT
+DOMAIN,pingma.qq.com,REJECT
+DOMAIN,stat.m.jd.com,REJECT
+DOMAIN,ads.mopub.com,REJECT
+DOMAIN-SUFFIX,mob.com,REJECT
+DOMAIN-SUFFIX,127.net,REJECT
+DOMAIN-SUFFIX,sinajs.cn,REJECT
+# Prevent sniffer from a public WiFi
+DOMAIN,init.icloud-analysis.com,REJECT
+
+GEOIP,CN,DIRECT
+
+FINAL,Proxy
