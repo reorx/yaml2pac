@@ -66,15 +66,13 @@ proxy:
     - youtube: https
 ```
 
-This yaml means:
-By default, all traffic will go directly without proxy, if the host of request
+The example yaml indicates that, by default,
+all traffic will go directly without proxy, if the host of request
 matches twitter.com by suffix (twitter.com or api.twitter.com), the traffic will
 go through the default proxy, which is a socks or socks5 proxy,
 and will fallback to be direct if not available;
 if the host matches youtube by keyword, the traffic will go through the proxy named
 `https`.
-
-Each directive will be explained detailedly below.
 
 ### `meta`
 

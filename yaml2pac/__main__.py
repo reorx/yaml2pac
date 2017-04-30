@@ -7,126 +7,15 @@ import sys
 import yaml
 import json
 import pkgutil
+import logging
 import argparse
 
-
-# TODO cidr matching https://github.com/skx/cidr_match.js
-
-
-def print_stderr(*args):
-    print(*args, file=sys.stderr)
+from yaml2pac.core import convert_to_pac_args, print_stderr
+from yaml2pac.testing import start_testing
 
 
-def rules_to_dict(l, v):
-    """
-    Convert rules like:
-    - a.com
-    - b.com: some_proxy
-    to dict like:
-    {
-        'a.com': 1
-        'b.com': 'some_proxy'
-    }
-    """
-    o = {}
-    for i in l:
-        if isinstance(i, basestring):
-            o[i] = v
-        elif isinstance(i, dict):
-            _k, _v = i.items()[0]
-            o[_k] = _v
-    return o
-
-
-def _parse_default(default):
-    if default == 'direct':
-        return 'direct'
-    elif default == 'proxy':
-        return 'proxy["default"]'
-    else:
-        return 'proxy["%s"]' % default
-
-
-
-SYSTEM_PROXY_HEADS = ['DIRECT', 'PROXY', 'SOCKS']
-
-
-def _check_single_proxy_compatibility(proxy):
-    for i in SYSTEM_PROXY_HEADS:
-        if proxy.startswith(i):
-            return True
-    return False
-
-
-def check_proxy_compatibility(proxy):
-    is_compatible = False
-    for i in proxy.split(';'):
-        # As long as there's at least one compatible single proxy,
-        # the whole proxy is compatible
-        if _check_single_proxy_compatibility(i):
-            is_compatible = True
-    return is_compatible
-
-
-RULE_TYPES = ['ip', 'keyword', 'domain']
-
-RULE_VALUES = {
-    'direct': 0,
-    'proxy': 1,
-}
-
-
-def generate_pac(d, rule_types=RULE_TYPES, rule_values=RULE_VALUES, ignore_warning=False):
-    """
-    Variables to replace:
-        __PROXIES__
-        __DEFAULT__
-        __IP__
-        __KEYWORD__
-        __DOMAIN__
-    """
-    template = pkgutil.get_data('yaml2pac', 'data/template.pac')
-
-    proxies = d['meta']['proxy']
-
-    # Check proxy compatibility
-    for proxy in proxies.itervalues():
-        is_compatible = check_proxy_compatibility(proxy)
-        if not is_compatible and not ignore_warning:
-            print_stderr('Proxy definition `{}` is not compatible with system PAC'.format(proxy))
-
-    pac_args = {
-        'proxies': proxies,
-        'default': _parse_default(d['meta']['default']),
-    }
-    [pac_args.setdefault(i, {}) for i in rule_types]
-
-    # Naming convention:
-    # In a typical yaml2pac yaml file:
-    # ```
-    # proxy:
-    #   domain:
-    #     - a.com
-    #     - b.com
-    #   keyword:
-    #     - c
-    # ```
-    # The content of `proxy`, including both `domain` and `keyword`, is the `ruleset`;
-    # Items of `domain` or `keyword` is the `rules`;
-    for key, ruleset in d.iteritems():
-        if key == 'meta':
-            continue
-        rule_value = rule_values.get(key, key)
-        for rule_type in rule_types:
-            rules = ruleset.get(rule_type)
-            if not rules:
-                continue
-            pac_args[rule_type].update(
-                rules_to_dict(rules, rule_value)
-            )
-
-    # print pac_args
-    pac_text = template
+def generate_pac(pac_args):
+    pac_text = pkgutil.get_data('yaml2pac', 'data/template.pac')
     for i, j in pac_args.iteritems():
         template_key = '__' + i.upper() + '__'
         if i == 'default':
@@ -152,9 +41,21 @@ def main():
     # options
     parser.add_argument('-i', '--ignore', action='store_true',
                         help="Ignore warnings, no warnings will show up")
+    parser.add_argument(
+            '-t', '--test', type=str, metavar='PAC',
+            help=("Set system proxy using the PAC file then test its usability, "
+                  "after this process the system proxy will be restored"))
+    parser.add_argument(
+            '--requester', type=str,
+            help=("Executable to send HTTP request when doing PAC test,"
+                  "this argument is required when `-t` is used."))
 
     args = parser.parse_args()
 
+    # Configure logging
+    logging.basicConfig(level=logging.INFO)
+
+    # Get yaml content
     try:
         with open(args.yaml, 'r') as f:
             text = f.read()
@@ -164,7 +65,14 @@ def main():
 
     d = yaml.load(text)
 
-    print(generate_pac(d, ignore_warning=args.ignore))
+    pac_args = convert_to_pac_args(d, ignore_warning=args.ignore)
+
+    if args.test:
+        if not args.requester:
+            raise ValueError('`--requester` must be specified when `-t` is used.')
+        start_testing(pac_args, args.test, args.requester)
+    else:
+        print(generate_pac(pac_args))
 
 
 if __name__ == '__main__':

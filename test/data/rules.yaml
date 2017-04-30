@@ -1,0 +1,31 @@
+# In this configuration, traffic will go as:
+#   a.com -> proxy
+#   xxbxx.com -> proxy
+#   8.8.8.8 -> proxy
+#   c.com -> http_1
+#   oodoo.com -> http_1
+#   114.114.114.114 -> http_1
+#   114.114.115.114 -> direct
+#   e.com -> direct
+
+meta:
+  default: direct
+  proxy:
+    default: "SOCKS5 127.0.0.1:1080; SOCKS 127.0.0.1:1080; DIRECT;"
+    https_1: "HTTPS 1.your-proxy.io:443;"
+
+proxy:
+  domain:
+    - a.com
+  keyword:
+    - b
+  ip:
+    - 8.8.0.0/16
+
+http_1:
+  domain:
+    - c.com
+  keyword:
+    - d
+  ip:
+    - 114.114.114.0/24
